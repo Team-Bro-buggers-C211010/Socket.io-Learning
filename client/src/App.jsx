@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useMemo } from "react"
 import {io} from "socket.io-client";
 import {Container, Typography, TextField, Button} from "@mui/material"
 const App = () => {
 
-  const socket = io("http://localhost:3000/");
+  const socket = useMemo(() => io("http://localhost:3000/"), []);
 
   const [message, setMessage] = useState("");
   const handleSubmit = (e)=> {
