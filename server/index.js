@@ -1,7 +1,6 @@
 import express from 'express';
 import {Server} from "socket.io";
 import {createServer} from "http";
-
 const port = 3000;
 
 const app = express();
@@ -25,7 +24,8 @@ io.on("connection", (socket)=> {
     console.log("User connected", socket.id);
     socket.emit("welcome", `Welcome to the socket server`);
     socket.broadcast.emit("welcome", `${socket.id} is joined the server`);
-    socket.on("message", (message) => {
+    socket.on("message", ({message, room}) => {
+        io.to(room).emit("receive-message", message);
         console.log(message);
     });
     socket.on("disconnect", () => {
