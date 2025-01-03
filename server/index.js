@@ -28,6 +28,11 @@ io.on("connection", (socket)=> {
         io.to(room).emit("receive-message", message);
         console.log(message);
     });
+
+    socket.on("join-room", (room) => {
+        socket.join(room);
+        console.log("User joined room", room);
+    })
     socket.on("disconnect", () => {
         console.log("User disconnected", socket.id);
     })
